@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--09_22_05_while.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바 스크립트의 while문  예제</title>
+</head>
+<body>
+<h1>자바 스크립트의 while문  예제</h1>
+<h2>F12 를 눌러 확인</h2>
+
+<script>
+
+    let count = 1; // 1부터 숫자를 세기 시작함
+
+    while (count <= 5) { // count가 5보다 작거나 같을 동안 계속 반복해!
+        console.log(count); // 현재 count 값을 화면에 보여줘.
+        count = count + 1; // count 값을 1 증가시켜줘. (다음 숫자를 세기 위해)
+    }
+
+    console.log("세는 것을 멈췄습니다!"); // 반복문이 끝난 후에 실행되는 코드
+
+    let characterName;
+
+    do {
+        characterName = prompt("캐릭터 이름을 입력하세요:");
+        // 사용자가 '취소'를 눌렀을 경우를 대비한 조건
+        if (characterName === null) {
+            alert("이름 입력이 취소되었습니다.");
+            break; // 반복문 종료
+        }
+
+        // 이름이 비어있거나 (빈 문자열) 특정 조건 (예: 5글자 이상)을 만족하지 못하면
+        if (characterName.length === 0 || characterName.length > 5) {
+            alert("이름은 1글자 이상, 5글자 이하로 입력해주세요.");
+        }
+    } while (characterName.length === 0 || characterName.length > 5);
+
+    if (characterName !== null) {
+        alert(`환영합니다, ${characterName}님! 모험을 시작합니다.`);
+    }
+
+</script>
+</body>
+</html>

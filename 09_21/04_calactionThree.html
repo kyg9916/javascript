@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>논리 연산자</title>
+</head>
+<body>
+<script>
+    let age = 15;
+    let hasTicket = true;
+
+    let canEnter = (age >= 13) && hasTicket;
+    console.log("입장 가능?", canEnter);  // true
+
+    let isChild = age < 13;
+    console.log("어린이인가요?", isChild);        // false
+    console.log("어린이가 아닌가요?", !isChild);  // true
+</script>
+</body>
+</html>

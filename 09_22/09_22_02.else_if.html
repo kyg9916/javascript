@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--09_22_02.else_if.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>If-Else If-Else Statement Example</title>
+</head>
+<body>
+<h1>If-Else If-Else 조건문 예제</h1>
+
+<script>
+    let gradeScore = 85; // 이번에는 85점이라고 가정해 봅시다.
+    let grade = ''; // 학점을 저장할 변수를 미리 만들어둡니다.
+
+    // 1. 만약 (점수가 90점 이상이면) { A 학점 }
+    if (gradeScore >= 90) {
+        grade = 'A';
+    }
+    // 2. 그렇지 않고 만약 (점수가 80점 이상이면) { B 학점 }
+    else if (gradeScore >= 80) {
+        grade = 'B'; // gradeScore가 85이므로, 이 조건이 참이 됩니다.
+    }
+    // 3. 그렇지 않고 만약 (점수가 70점 이상이면) { C 학점 }
+    else if (gradeScore >= 70) {
+        grade = 'C';
+    }
+    // 4. 그렇지 않고 만약 (점수가 60점 이상이면) { D 학점 }
+    else if (gradeScore >= 60) {
+        grade = 'D';
+    }
+    // 5. 위의 모든 조건이 아니면 { F 학점 }
+    else {
+        grade = 'F';
+    }
+
+    console.log("당신의 점수는 " + gradeScore + "점이고, 학점은 " + grade + "입니다.");
+    console.log("프로그램이 종료되었습니다.");
+</script>
+</body>
+</html>

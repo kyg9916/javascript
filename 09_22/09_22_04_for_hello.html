@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--09_22_04_for_hello.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for Example</title>
+</head>
+<body>
+<h1>자바 스크립트의 for 문 예제</h1>
+
+<script>
+
+    console.log("--- for 문 시작 ---");
+
+    for (let i = 0; i < 10; i++) {
+        // 초기화: let i = 0; (i를 0으로 시작)
+        // 조건식: i < 10; (i가 10보다 작은 동안 반복)
+        // 증감식: i++; (한 번 반복할 때마다 i를 1씩 증가)
+        console.log(i + "번째 안녕!"); // i 값도 함께 출력
+    }
+
+    console.log("--- for 문 끝 ---");
+
+    let dan = 7; // 7단을 출력해봅시다. 다른 숫자로 바꿔보세요!
+
+    console.log("--- " + dan + "단 시작 ---");
+
+    for (let i = 1; i <= 9; i++) {
+        // i는 1부터 시작해서 9까지 (9 이하일 때) 반복
+        console.log(dan + " X " + i + " = " + (dan * i));
+    }
+
+    console.log("--- " + dan + "단 끝 ---");
+</script>
+</body>
+</html>

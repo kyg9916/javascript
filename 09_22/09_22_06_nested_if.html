@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--09_22_06_nested_if.html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바 스크립트의 중첩 예제</title>
+</head>
+<body>
+<h1>자바 스크립트의 중첩 예제</h1>
+<h2>F12 를 눌러 확인</h2>
+
+<script>
+
+    let age = 11; // 나이
+    let hasTicket = true; // 티켓 소지 여부 (가지고 있으면 true, 없으면 false)
+
+    console.log("놀이공원 입장 심사 시작!");
+
+    if (hasTicket) { // 첫 번째 조건: 티켓이 있는가?
+        console.log("티켓이 있습니다. 다음 심사로 넘어갑니다.");
+
+        if (age >= 12) { // 두 번째 조건: 나이가 12살 이상인가? (티켓이 있을 때만 확인)
+            console.log("나이가 12살 이상입니다. 입장 가능!");
+        } else { // 나이가 12살 미만일 때 (티켓은 있지만)
+            console.log("나이가 어려서 입장이 어렵습니다.");
+        }
+    } else { // 첫 번째 조건: 티켓이 없는 경우
+        console.log("티켓이 없습니다. 입장이 불가능합니다.");
+    }
+
+    console.log("놀이공원 입장 심사 종료!");
+
+    console.log("구구단 시작!");
+
+    for (let dan = 2; dan <= 9; dan++) { // 첫 번째 for문: '단'을 결정 (2단부터 9단까지)
+        console.log(`--- ${dan}단 ---`); // 현재 몇 단인지 알려주는 메시지
+
+        for (let num = 1; num <= 9; num++) { // 두 번째 for문: '곱하는 수'를 결정 (1부터 9까지)
+            let result = dan * num; // 단과 곱하는 수를 곱해서 결과를 만듦
+            console.log(`${dan} x ${num} = ${result}`); // 결과를 화면에 보여줌
+        }
+        console.log(""); // 한 단이 끝나면 줄바꿈하여 보기에 좋게 만듦
+    }
+
+    console.log("구구단 끝!");
+
+</script>
+</body>
+</html>

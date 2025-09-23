@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 09_23_04_parameter.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1> 파라미터 예제 </h1>
+</body>
+
+<script>
+
+    function add(num1, num2) {
+        let sum = num1 + num2;
+        console.log("두 숫자의 합: " + sum);
+    }
+
+
+    add(5, 7); // num1에 5가, num2에 7이 전달
+    add(100, 200);
+
+    // 두 숫자를 받아서 곱한 결과를 반환하는 함수
+    function multiply(numA, numB) { // numA, numB가 매개변수
+        let result = numA * numB;
+        return result; // 계산 결과를 반환합니다.
+    }
+
+    // 함수를 호출하면서 인자(3, 4)를 전달하고, 반환된 값을 변수에 저장합니다.
+    let product = multiply(3, 4);
+    console.log("3과 4의 곱:", product); // 출력: 3과 4의 곱: 12
+
+    // 다른 값으로 다시 호출
+    let anotherProduct = multiply(10, 5);
+    console.log("10과 5의 곱:", anotherProduct); // 출력: 10과 5의 곱: 50
+
+    function item(item1, item2) {
+        console.log("첫번째 아이템", item1)
+        console.log("두번째 아이템", item2)
+        console.log("세번째 아이템", item3)
+    }
+
+    console.log("--- 매개변수가 부족 --")
+    item("사과, 바나나", "딸기");
+
+</script>
+</html>

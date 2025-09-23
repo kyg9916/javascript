@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- 09_23_07_calculator.html -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 활용 계산기</title>
+</head>
+<body>
+<h1>간단한 계산기</h1>
+<p>아래 버튼을 눌러보세요! (결과는 콘솔에 출력)</p>
+
+<button onclick="add(10, 5)">10 + 5 계산</button>
+<button onclick="subtract(20, 7)">20 - 7 계산</button>
+<button onclick="multiply(3, 12)">3 * 12 계산</button>
+<button onclick="divide(100, 10)">100 / 10 계산</button>
+
+<script>
+    // 덧셈 함수
+    function add(a, b) {
+        let sum = a + b;
+        console.log("덧셈 결과: " + sum);
+        return sum;
+    }
+
+    // 뺄셈 함수
+    function subtract(a, b) {
+        let difference = a - b;
+        console.log("뺄셈 결과: " + difference);
+        return difference;
+    }
+
+    // 곱셈 함수
+    function multiply(a, b) {
+        let product = a * b;
+        console.log("곱셈 결과: " + product);
+        return product;
+    }
+
+    // 나눗셈 함수
+    function divide(a, b) {
+        if (b === 0) {
+            console.log("오류: 0으로 나눌 수 없습니다!");
+            return "Error";
+        }
+        let quotient = a / b;
+        console.log("나눗셈 결과: " + quotient);
+        return quotient;
+    }
+</script>
+</body>
+</html>
