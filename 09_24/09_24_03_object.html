@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 09_24_03_object.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>객체</title>
+</head>
+<body>
+
+<h1> 객체활용 F12를 눌러 확인 </h1>
+
+</body>
+
+<script>
+
+    let student = {
+        name: "민지",
+        age: 14,
+        grade: "중학교 2학년",
+        subjects: ["국어", "수학", "과학"]
+    };
+
+    // 1. 점으로 불러오기
+
+    console.log("학생 이름:", student.name);
+    console.log("나이:", student.age);
+    console.log("학년:", student["grade"]);
+    console.log("첫 번째 과목:", student.subjects[0]);
+
+    // 2. 대괄호로 불러오기
+
+    console.log(student["name"])
+    console.log(student["age"])
+    console.log(student["grade"])
+    console.log(student["subjects"])
+
+    // -- 콘솔 출력해보기 --
+    console.log("중간 콘솔 출력", student)
+    // -- 콘솔 출력 끝
+
+    // 3. 새로운 객체를 추가하기
+
+    student.hobby = "음악 듣기";
+
+    // 추가된 속성 확인
+    console.log("학생 취미:", student.hobby);
+    console.log(student)
+
+    // 4. 기본 나이 값 바꾸기
+
+    student.age = 15;
+    console.log("수정된 민지의 나이는?" , student.age); // 15
+
+    // 5. 키 값이 중복되면?
+
+    let studentTwo = {
+        name: "철수",
+        /*name : "민지"*/
+        age: 14,
+        grade: "중학교 2학년",
+        subjects: ["국어", "수학", "과학"]
+    };
+
+    console.log(studentTwo.name)
+
+    // Uncaught SyntaxError: Unexpected identifier 'age' 오류발생!
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 09_24_01_array.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>배열</title>
+</head>
+<body>
+
+<h1> 배열 예제 F12를 눌러 확인 </h1>
+
+</body>
+
+<script>
+
+  // 1. 배열 선언과 초기화
+  console.log("--- 1. 배열 선언과 초기화 ---");
+  let myFriends = ["지훈", "예진", "현우", "아름"]; // 친구 이름 배열
+  let myLuckyNumbers = [7, 13, 21]; // 행운의 숫자 배열
+  let randomData = ["자바스크립트", 2024, true, null]; // 다양한 타입의 데이터 배열
+
+  console.log("내 친구들:", myFriends);
+  console.log("나의 행운의 숫자들:", myLuckyNumbers);
+  console.log("무작위 데이터:", randomData);
+  console.log(""); // 한 줄 띄우기
+
+  // 2. 요소 접근 (Index 사용)
+  console.log("--- 2. 요소 접근 (Index 사용) ---");
+  console.log("첫 번째 친구:", myFriends[0]); // 인덱스 0은 첫 번째 요소
+  console.log("세 번째 친구:", myFriends[2]); // 인덱스 2는 세 번째 요소
+
+  let firstLuckyNumber = myLuckyNumbers[0];
+  console.log("첫 번째 행운의 숫자:", firstLuckyNumber);
+
+  console.log("없는 인덱스 접근:", myFriends[10]); // 없는 인덱스에 접근하면 'undefined'가 나온다.
+  console.log("");
+
+  // 3. 배열의 길이 (length 속성)
+  console.log("--- 3. 배열의 길이 (length 속성) ---");
+  console.log("친구 배열의 길이:", myFriends.length);
+  console.log("숫자 배열의 길이:", myLuckyNumbers.length);
+  console.log("빈 배열의 길이:", [].length); // 빈 배열의 길이는 0
+
+  // length를 활용하여 마지막 요소에 접근하기 (아주 중요한 팁!)
+  // 마지막 요소의 인덱스는 '배열길이 - 1' 입니다.
+  console.log("친구 배열의 마지막 친구:", myFriends[myFriends.length - 1]); // '아름'
+  console.log("");
+
+  // 4. 요소 추가 (push() 메서드)
+  console.log("--- 4. 요소 추가 (push() 메서드) ---");
+  console.log("원래 내 친구들:", myFriends);
+
+  myFriends.push("서윤"); // '서윤'을 배열의 끝에 추가
+  console.log("서윤 추가 후 친구들:", myFriends);
+
+  myFriends.push("준영", "다희"); // '준영'과 '다희'를 한 번에 추가
+  console.log("준영, 다희 추가 후 친구들:", myFriends);
+
+  console.log("변경된 친구 배열의 길이:", myFriends.length); // 길이가 늘어났어요!
+  console.log("");
+
+  // 추가 예시: 빈 배열에 요소 추가하기
+  console.log("--- 빈 배열에 요소 추가 예시 ---");
+  let shoppingList = []; // 빈 쇼핑 목록 배열
+  console.log("초기 쇼핑 목록:", shoppingList);
+
+  shoppingList.push("우유");
+  console.log("우유 추가 후:", shoppingList);
+
+  shoppingList.push("계란", "빵");
+  console.log("계란, 빵 추가 후:", shoppingList);
+
+  console.log("최종 쇼핑 목록:", shoppingList);
+  console.log("쇼핑 목록 개수:", shoppingList.length);
+
+</script>
+</html>

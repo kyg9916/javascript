@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 09_24_02_array_method.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>배열</title>
+</head>
+<body>
+
+<h1> 배열 매서드 F12를 눌러 확인 </h1>
+
+</body>
+
+<script>
+
+    // --- pop 매서드 ---
+
+    // let fruits = ['사과', '바나나', '딸기', '포도', '오렌지']; // 현재 과일 목록
+    //
+    // console.log("현재 과일 목록:", fruits); // 현재 과일 목록 확인
+    //
+    // // 배열의 맨 뒤에 있는 데이터를 제거
+    // let removedFruit1 = fruits.pop();
+    //
+    // console.log("제거된 과일:", removedFruit1); // 어떤 과일이 제거되었는지 확인
+    // console.log("pop 후 과일 목록:", fruits); // 제거된 후의 목록 확인
+    //
+    // // 한 번 더 pop 해볼까요?
+    // let removedFruit2 = fruits.pop();
+    //
+    // console.log("두 번째 제거된 과일:", removedFruit2);
+    // console.log("두 번째 pop 후 과일 목록:", fruits);
+
+    // --- shift 매서드 ---
+
+    /*let fruits = ['사과', '바나나', '딸기', '포도']; // 현재 과일 목록
+
+    console.log("현재 과일 목록:", fruits); // 현재 과일 목록 확인
+
+    // 배열의 맨 앞에 있는 데이터를 제거
+    let shiftedFruit1 = fruits.shift();
+
+    console.log("제거된 과일:", shiftedFruit1);
+    console.log("shift 후 과일 목록:", fruits); // '사과'가 제거되고 나머지 과일들이 앞으로 당겨졌어요.
+
+    // 한 번 더 shift 해볼까요?
+    let shiftedFruit2 = fruits.shift();
+
+    console.log("두 번째 제거된 과일:", shiftedFruit2);
+    console.log("두 번째 shift 후 과일 목록:", fruits);*/
+
+    // --- unshift 매서드 ---
+
+    let fruits = ['바나나', '딸기', '포도']; // 현재 과일 목록
+
+    console.log("현재 과일 목록:", fruits); // 현재 과일 목록 확인
+
+    // '사과'를 배열의 맨 앞에 추가
+    fruits.unshift('사과');
+
+    console.log("사과 추가 후 과일 목록:", fruits); // '사과'가 추가된 목록 확인
+
+    // '망고'도 맨 앞에 추가해 볼까요?
+    fruits.unshift('망고');
+
+    console.log("망고 추가 후 과일 목록:", fruits); // '망고'가 추가된 목록 확인
+
+    // 급식 미니 게임
+
+    let lunch = ["영희", "민수", "지훈", "은서", "하준"];
+    console.log("--- 급식 줄서기 미니게임 ---");
+    console.log("점심시간이 되었습니다! 현재 줄:", lunch);
+
+    // 1. 새치기 (unshift): '철수'가 줄 맨 앞에 선다.
+    lunch.unshift("철수");
+    console.log("1. '철수'가 새치기합니다:", lunch);
+
+    // 2. 급식받기 (shift): 맨 앞의 '철수'가 급식을 받는다.
+    let getLunch = lunch.shift();
+    console.log("2. '" + getLunch + "'가 급식을 받았습니다.", lunch);
+
+    // 3. 줄서기 (push): '보람'이 줄 맨 뒤에 선다.
+    lunch.push("보람");
+    console.log("3. '보람'이 줄 맨 뒤에 섰습니다:", lunch);
+
+    // 4. 떠나기 (pop): 마지막에 서 있던 '보람'이 줄을 떠난다.
+    let leaveLine = lunch.pop();
+    console.log("4. '" + leaveLine + "'가 줄을 떠났습니다.", lunch);
+
+    console.log("--- 최종 급식 줄 상태 ---");
+    console.log(lunch);
+
+
+</script>
+</html>
