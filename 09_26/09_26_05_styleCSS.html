@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--09_26_05_styleCSS.html-->
+<head>
+    <meta charset="UTF-8">
+    <title>style 예제</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #myBox {
+            width: 150px;
+            height: 150px;
+            background-color: lightblue;
+            margin: 30px auto;
+            border: 2px solid steelblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: white;
+            transition: all 0.3s ease; /* 모든 스타일 변화를 0.3초 동안 부드럽게 */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>style 속성으로 꾸미기 바꾸기</h1>
+
+<div id="myBox">
+    <p>안녕하세요!</p>
+</div>
+
+<button id="bgColorBtn">배경색 변경</button>
+<button id="textColorBtn">글자색 변경</button>
+<button id="sizeBtn">크기 변경</button>
+<button id="resetStyleBtn">원래대로</button>
+
+<script>
+    const myBox = document.getElementById('myBox');
+    const bgColorBtn = document.getElementById('bgColorBtn');
+    const textColorBtn = document.getElementById('textColorBtn');
+    const sizeBtn = document.getElementById('sizeBtn');
+    const resetStyleBtn = document.getElementById('resetStyleBtn');
+
+    // 원래 스타일을 저장해두는 변수
+    // 주의: 이렇게 저장하면 인라인 스타일만 저장되므로, 원래 CSS 스타일을 되돌리려면 클래스를 이용하는게 더 좋다
+    const originalBgColor = myBox.style.backgroundColor;
+    const originalColor = myBox.style.color;
+    const originalWidth = myBox.style.width;
+    const originalHeight = myBox.style.height;
+    const originalFontSize = myBox.style.fontSize;
+
+    // 1. 배경색 변경 버튼 클릭 시
+    bgColorBtn.addEventListener('click', function() {
+        myBox.style.backgroundColor = 'lightgreen'; // CSS의 background-color
+    });
+
+    // 2. 글자색 변경 버튼 클릭 시
+    textColorBtn.addEventListener('click', function() {
+        myBox.style.color = 'darkblue'; // CSS의 color
+        myBox.style.fontWeight = 'bold'; // CSS의 font-weight (굵기)
+    });
+
+    // 3. 크기 변경 버튼 클릭 시
+    sizeBtn.addEventListener('click', function() {
+        myBox.style.width = '200px'; // CSS의 width
+        myBox.style.height = '200px'; // CSS의 height
+        myBox.style.fontSize = '24px'; // CSS의 font-size (카멜 케이스!)
+    });
+
+    // 4. 원래대로 버튼 클릭 시 (저장해둔 원래 스타일로 복구)
+    resetStyleBtn.addEventListener('click', function() {
+        myBox.style.backgroundColor = 'lightblue'; // CSS 스타일시트에 있는 기본값으로 설정
+        myBox.style.color = 'white';
+        myBox.style.width = '150px';
+        myBox.style.height = '150px';
+        myBox.style.fontSize = '18px';
+        myBox.style.fontWeight = 'normal'; // 글자 굵기도 원래대로
+    });
+</script>
+</body>
+</html>

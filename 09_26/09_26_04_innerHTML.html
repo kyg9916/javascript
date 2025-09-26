@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- 09_26_04_innerHTML.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>innerHTML 예제</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .content-box {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>innerHTML로 화면 내용 바꾸기</h1>
+
+<div id="myContentBox" class="content-box">
+    <p>여기는 원래 있던 내용</p>
+    <p>버튼을 눌러서 내용을 바꾸기!</p>
+</div>
+
+<button id="changeTextBtn">텍스트만 바꾸기</button>
+<button id="changeHtmlBtn">HTML 내용 바꾸기</button>
+<button id="addListBtn">목록 추가하기</button>
+<button id="resetBtn">원래대로</button>
+
+<script>
+    const myContentBox = document.getElementById('myContentBox');
+    const changeTextBtn = document.getElementById('changeTextBtn');
+    const changeHtmlBtn = document.getElementById('changeHtmlBtn');
+    const addListBtn = document.getElementById('addListBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // 원래 내용을 저장해두는 변수
+    const originalContent = myContentBox.innerHTML;
+
+    // 1. 텍스트만 바꾸기 버튼 클릭 시
+    changeTextBtn.addEventListener('click', function() {
+        // textContent는 HTML 태그를 인식하지 않고 순수 텍스트로만 바꿉니다.
+        myContentBox.textContent = '버튼을 눌러 <b>순수 텍스트</b>로 변경되었습니다!';
+    });
+
+    // 2. HTML 내용 바꾸기 버튼 클릭 시
+    changeHtmlBtn.addEventListener('click', function() {
+        // innerHTML은 HTML 태그를 인식해서 적용합니다.
+        myContentBox.innerHTML = '<h2>새로운 제목이 생겼어요!</h2><p style="color: red;">여기는 <b>강조된 HTML 내용</b>입니다.</p>';
+    });
+
+    // 3. 목록 추가하기 버튼 클릭 시
+    addListBtn.addEventListener('click', function() {
+        myContentBox.innerHTML = '<h3>좋아하는 과일</h3><ul><li>사과</li><li>바나나</li><li>딸기</li></ul>';
+    });
+
+    // 4. 원래대로 버튼 클릭 시
+    resetBtn.addEventListener('click', function() {
+        myContentBox.innerHTML = originalContent; // 저장해둔 원래 내용으로 되돌리기
+    });
+</script>
+</body>
+</html>

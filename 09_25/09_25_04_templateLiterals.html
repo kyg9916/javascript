@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--09_25_04_templateLiterals.html-->
+<head>
+    <meta charset="UTF-8">
+    <title>템플릿 리터널</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+    const name = "혜준";
+    const age = 14;
+    const hobby = "농구";
+
+    // 1. 기존 방식 (문자열 결합)
+    const oldGreeting = "안녕하세요, 제 이름은 " + name + "입니다. 나이는 " + age + "살이고, 취미는 " + hobby + "입니다.";
+    console.log("기존 방식:", oldGreeting);
+
+    // 2. 템플릿 리터럴 사용
+    const newGreeting = `안녕하세요, 제 이름은 ${name}입니다. 나이는 ${age}살이고, 취미는 ${hobby}입니다.`;
+    console.log("템플릿 리터럴:", newGreeting);
+
+    // 3. 표현식 삽입 예시 (계산도 가능!)
+    const price = 1000;
+    const quantity = 3;
+    const totalMessage = `상품 가격: ${price}원, 수량: ${quantity}개, 총 가격: ${price * quantity}원`;
+    console.log(totalMessage); // 출력: 상품 가격: 1000원, 수량: 3개, 총 가격: 3000원
+
+    // 4. 여러 줄 문자열 예시
+    const multiLineText = `
+이것은 여러 줄의
+문자열이야
+템플릿 리터럴 덕분에 아주 쉽게
+줄바꿈을 할 수 있어!
+`;
+    console.log(multiLineText);
+
+    // function_in_function_example.js
+
+    // 작은 임무 1: 인사하기 함수
+    function greet(name) {
+        console.log(`안녕하세요, ${name}님!`);
+    }
+
+    // 작은 임무 2: 이름과 나이 정보 출력 함수
+    function displayInfo(name, age) {
+        console.log(`이름: ${name}, 나이: ${age}살`);
+    }
+
+    // 큰 임무: 사용자 정보 처리 함수 (여기서 다른 함수들을 호출!)
+    function processUser(userName, userAge) {
+        console.log("--- 사용자 정보 처리 시작 ---");
+
+        // greet 함수 호출
+        greet(userName);
+
+        // displayInfo 함수 호출
+        displayInfo(userName, userAge);
+
+        const welcomeMessage = `환영합니다, ${userName}님!`;
+        console.log(welcomeMessage);
+
+        console.log("--- 사용자 정보 처리 완료 ---");
+    }
+
+    // 이제 큰 임무 함수를 호출해 볼까요?
+    processUser("김철수", 16);
+    console.log("\n"); // 한 줄 띄우기
+
+    processUser("박영희", 15);
+
+</script>
+</html>

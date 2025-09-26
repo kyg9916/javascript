@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>스코프 예제</h1>
+<p> F12 를 눌러 확인</p>
+
+</body>
+
+<script>
+
+    // ----- 전역 스코프 예시 -----
+
+    // 함수 바깥에 선언된 변수는 전역 변수입니다.
+    const globalMessage = "안녕하세요! 저는 전역 변수입니다.";
+    let globalCounter = 0; // 전역 변수
+
+    function greet() {
+        console.log(globalMessage); // 함수 안에서도 globalMessage에 접근 가능
+        globalCounter++; // 함수 안에서 전역 변수 값 변경 가능
+    }
+
+    function displayCounter() {
+        console.log("현재 카운터:", globalCounter); // 다른 함수에서도 globalCounter에 접근 가능
+    }
+
+    greet(); // 함수 호출
+    displayCounter(); // 카운터 값 출력
+
+    greet(); // 또 다른 함수 호출
+    displayCounter(); // 카운터 값 출력
+
+    console.log(globalMessage); // 함수 바깥에서도 globalMessage에 접근 가능
+    console.log("최종 전역 카운터:", globalCounter); // 함수 바깥에서도 globalCounter에 접근 가능
+
+    // 전역 변수의 문제점:
+    // 1. 어디서든 수정될 수 있어 코드 추적이 어려워진다. 남발은 금물
+    // 2. 다른 코드와 이름이 겹쳐 예기치 않은 버그가 발생할 수 있다.
+    //    (예: 다른 개발자가 만든 변수 이름과 내 변수 이름이 같아서 둘 중 하나가 덮어씌워지는 경우)
+
+    // 2. ----- 지역(함수) 스코프 예시 (var 키워드) -----
+
+    function calculateSum(num1, num2) {
+        // 이 안에서 선언된 var 변수는 이 함수 안에서만 유효합니다.
+        var result = num1 + num2; // result는 calculateSum 함수의 지역 변수
+        console.log("함수 안에서 result:", result); // OK
+    }
+
+    calculateSum(10, 20); // 함수 호출
+
+    // console.log("함수 밖에서 result:", result); // Error! result는 함수 밖에서 접근 불가능
+    // Uncaught ReferenceError: result is not defined
+
+    function createGreeting(name) {
+        var greeting = "안녕하세요, " + name + "님!"; // greeting은 createGreeting 함수의 지역 변수
+        console.log(greeting);
+    }
+
+    createGreeting("김철수");
+    // console.log(greeting); // Error! greeting은 함수 밖에서 접근 불가능
+
+    // 3. ----- 블록 스코프 예시 (let, const 키워드) -----
+
+    // 3-1. if 문 안에서의 블록 스코프
+    if (true) {
+        const blockConstant = "저는 if 블록 안의 const 변수입니다.";
+        let blockVariable = "저는 if 블록 안의 let 변수입니다.";
+        var functionVariable = "저는 if 블록 안의 var 변수입니다."; // var는 블록 스코프를 따르지 않음!
+
+        console.log(blockConstant); // OK
+        console.log(blockVariable); // OK
+        console.log(functionVariable); // OK (if 블록 안에서는 접근 가능)
+    }
+
+    // console.log(blockConstant); // Error! blockConstant는 if 블록 밖에서 접근 불가능
+    // console.log(blockVariable); // Error! blockVariable는 if 블록 밖에서 접근 불가능
+    console.log(functionVariable); // OK! var는 블록 스코프를 무시하고 함수 스코프를 따름 (아래에서 더 자세히 설명)
+
+    // 3-2. for 문 안에서의 블록 스코프
+    for (let i = 0; i < 3; i++) {
+        let loopMessage = `현재 i는 ${i}입니다.`;
+        console.log(loopMessage);
+    }
+
+    // console.log(i); // Error! i는 for 블록 밖에서 접근 불가능
+    // console.log(loopMessage); // Error! loopMessage는 for 블록 밖에서 접근 불가능
+
+    for (var j = 0; j < 3; j++) {
+        var loopVarMessage = `현재 j는 ${j}입니다.`;
+        console.log(loopVarMessage);
+    }
+    console.log(j); // OK! var는 for 블록 밖에서도 접근 가능 (주의!)
+    console.log(loopVarMessage); // OK! var는 for 블록 밖에서도 접근 가능 (주의!)
+
+
+    // 3-3. 중첩된 블록 스코프
+    let outerVar = "바깥 변수";
+
+    if (true) {
+        let innerVar = "안쪽 변수";
+        console.log(outerVar); // OK (바깥 스코프 변수에 접근 가능)
+
+        if (true) {
+            let deepestVar = "가장 안쪽 변수";
+            console.log(outerVar); // OK
+            console.log(innerVar); // OK
+            console.log(deepestVar); // OK
+        }
+        // console.log(deepestVar); // Error! deepestVar는 더 안쪽 블록 스코프에 갇혀있음
+    }
+    // console.log(innerVar); // Error! innerVar는 if 블록 스코프에 갇혀있음
+
+    // 4. ----- 스코프 체인 예시 -----
+
+    const globalBeer = "맥주"; // 전역 스코프
+
+    function restaurant() {
+        const restaurantMenu = "스테이크"; // restaurant 함수의 지역 스코프
+
+        function kitchen() {
+            const kitchenIngredient = "양파"; // kitchen 함수의 지역 스코프
+
+            console.log("주방에서:");
+            console.log(globalBeer);         // OK: 전역 스코프에서 찾음
+            console.log(restaurantMenu);     // OK: 부모 함수 스코프에서 찾음
+            console.log(kitchenIngredient);  // OK: 현재 스코프에서 찾음
+            // console.log(customerOrder); // Error: 접근 불가능 (아래에서 설명)
+        }
+
+        function customerTable() {
+            const customerOrder = "샐러드"; // customerTable 함수의 지역 스코프
+
+            console.log("\n손님 테이블에서:");
+            console.log(globalBeer);         // OK: 전역 스코프에서 찾음
+            console.log(restaurantMenu);     // OK: 부모 함수 스코프에서 찾음
+            console.log(customerOrder);      // OK: 현재 스코프에서 찾음
+            // console.log(kitchenIngredient);  // Error! customerTable은 kitchen 스코프에 접근 불가
+        }
+
+        kitchen(); // kitchen 함수 호출
+        customerTable(); // customerTable 함수 호출
+    }
+
+    restaurant(); // restaurant 함수 호출
+
+    // console.log(restaurantMenu); // Error! 함수 밖에서 접근 불가능
+    // console.log(kitchenIngredient); // Error! 함수 밖에서 접근 불가능
+
+</script>
+</html>

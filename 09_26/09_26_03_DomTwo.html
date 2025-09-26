@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>document 객체 예제</title>
+</head>
+<body>
+<h1>웹페이지의 요소들을 찾아보자!</h1>
+
+<form name="loginForm">
+  <input type="text" placeholder="아이디">
+  <button type="submit">로그인</button>
+</form>
+
+<img src="logo.png" alt="사이트 로고" name="logoImage">
+
+<a href="https://www.naver.com" id="naverLink">네이버로 이동</a>
+<br>
+<a href="https://www.google.com" id="googleLink">구글로 이동</a>
+
+<script>
+
+  console.log(document.forms);              // 전체 form 요소들 (HTMLCollection)
+  console.log(document.forms[0]);           // 첫 번째 form 요소
+  console.log(document.forms[0].name);      // 첫 번째 form의 name 속성 값 (loginForm)
+  console.log(document.images);             // 이미지 요소들 (HTMLCollection)
+  console.log(document.links);              // <a> 요소들 중 href가 있는 요소들 (HTMLCollection)
+
+
+</script>
+</body>
+</html>

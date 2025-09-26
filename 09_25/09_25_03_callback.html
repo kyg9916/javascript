@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 09_25_03_callback.html -->
+<head>
+    <meta charset="UTF-8">
+    <title>콜백함수</title>
+</head>
+<body>
+
+<h1> 콜백함수의 예제 F12 를 눌러서 확인</h1>
+
+</body>
+
+<script>
+
+    // 1. 인사하는 함수를 만든다. (이게 나중에 호출될 콜백 함수가 될 것이다.)
+    function sayHello() {
+        console.log("안녕하세요!");
+    }
+
+    // 2. 누군가를 환영하는 함수를 만들어요. (이게 다른 함수를 인자로 받을 메인 함수가 될 것이다.)
+    function greet(callbackFunction) { // 여기서 callbackFunction이 인자값이라고 볼 수 있다.
+        console.log("환영합니다!");
+        // 인자로 받은 함수를 실행합니다.
+        callbackFunction(); // 여기서 sayHello() 함수가 호출됩니다.
+    }
+
+    // 3. greet 함수를 호출하면서, sayHello 함수를 인자로 넘겨줍니다.
+    greet(sayHello); // sayHello 뒤에 ()를 붙이지 않는다. 함수 자체를 넘겨준다.
+
+
+
+    // 4. 비동기 처리
+
+    function fetchData(callback) {
+        console.log("데이터를 서버에서 가져오는 중...");
+
+        // 실제 서버 통신은 시간이 걸리므로, 가짜로 2초 기다리게 하자
+        setTimeout(function() {
+            const data = "서버에서 받아온 데이터: 중요 정보!";
+            console.log("데이터를 성공적으로 받아왔습니다.");
+            callback(data); // 데이터를 다 가져온 후에, 콜백 함수를 호출하며 데이터를 넘겨줍니다.
+        }, 2000); // 2000밀리초 = 2초 기다립니다.
+    }
+
+    // 데이터를 처리하는 콜백 함수를 만듭니다.
+    function processData(receivedData) {
+        console.log("받은 데이터로 작업을 처리합니다: " + receivedData);
+        console.log("데이터 처리 완료!");
+    }
+
+    // fetchData 함수를 호출하면서 processData 함수를 콜백으로 넘겨줍니다.
+    console.log("--- 작업 시작 ---");
+    fetchData(processData);
+    console.log("--- 작업 요청 완료 (아직 데이터는 안 왔음) ---");
+
+
+    // 5. 익명함수
+
+    function performAction(actionMessage, callback) {
+        console.log(actionMessage + " 작업을 시작합니다.");
+        // 1초 후에 콜백 함수를 호출합니다.
+        setTimeout(function() { // 이름 없는 함수(익명 함수)를 콜백으로 넘겨줍니다.
+            callback();
+        }, 1000);
+    }
+
+    // performAction 함수를 호출하면서, 두 번째 인자로 익명 함수를 직접 만듭니다.
+    performAction("파일 저장", function() {
+        console.log("파일 저장 완료! 💾");
+    });
+
+    // 또 다른 익명 함수 콜백 예제
+    performAction("데이터 백업", function() {
+        console.log("데이터 백업 완료! ☁️");
+    });
+
+</script>
+</html>
