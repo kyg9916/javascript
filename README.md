@@ -65,6 +65,10 @@
 
 ---
 
+## Velog
+
+`https://velog.io/@kyg6389/series/javascript`
+
 ## 📂 사용 방법
 
 ```bash
