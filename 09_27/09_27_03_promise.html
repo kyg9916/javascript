@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--09_27_03_promise.html-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기 처리 예제</title>
+</head>
+<body>
+<h1>콘솔을 확인하세요!</h1>
+
+</body>
+
+<script>
+
+
+    // 1. 동기적으로 실행되는 함수
+    function introduce(name) {
+        console.log(`안녕하세요, 저는 ${name}입니다.`);
+    }
+
+    introduce('지우'); // 안녕하세요, 저는 지우입니다.
+
+    // 2. 콜백 함수를 사용하는 비동기 함수 (setTimeout은 정해진 시간 후에 코드를 실행시켜주는 웹 API)
+    function waitAndGreet(name, callback) {
+        console.log(`잠시 기다렸다가 ${name}에게 인사할게요...`);
+        // 3초(3000 밀리초) 후에 실행될 함수를 예약
+        setTimeout(function() {
+            // 예약된 시간이 지나면 이 콜백 함수가 실행
+            console.log(`3초가 지났네요!`);
+            callback(name); // 전달받은 콜백 함수를 실행
+        }, 3000);
+    }
+
+    console.log('--- 콜백 함수 시작 ---');
+    waitAndGreet('피카츄', function(person) {
+        console.log(`${person} 안녕! 반가워!`);
+    });
+    console.log('--- 콜백 함수 끝 ---'); // 이 메시지가 먼저 출력
+
+    // 3개의 비동기 작업을 순서대로 실행하고 싶을 때 콜백을 사용하면...
+    function getData(source, callback) {
+        console.log(`${source}에서 데이터 가져오기 시작...`);
+        setTimeout(function() {
+            const data = `[${source} 데이터]`;
+            console.log(`${source}에서 데이터 가져오기 완료!`);
+            callback(null, data); // (에러, 데이터) 형식으로 콜백 호출
+        }, 1000); // 1초 걸린다고 가정
+    }
+
+    console.log('\n--- 콜백 지옥 예시 시작 ---');
+
+    // 첫 번째 데이터 가져오기
+    getData('서버A', function(err, dataA) {
+        if (err) { console.error(err); return; }
+        console.log(`첫 번째 데이터: ${dataA}`);
+
+        // 첫 번째 데이터가 성공하면 두 번째 데이터 가져오기
+        getData('서버B', function(err, dataB) {
+            if (err) { console.error(err); return; }
+            console.log(`두 번째 데이터: ${dataB}`);
+
+            // 두 번째 데이터가 성공하면 세 번째 데이터 가져오기
+            getData('서버C', function(err, dataC) {
+                if (err) { console.error(err); return; }
+                console.log(`세 번째 데이터: ${dataC}`);
+                console.log('모든 데이터 가져오기 완료!');
+            });
+        });
+    });
+    console.log('--- 콜백 지옥 예시 끝 (이 메시지가 먼저 나옴) ---');
+
+    // Promise
+
+    // Promise를 반환하는 함수를 만들기
+    function fetchUserData(userId) {
+        return new Promise((resolve, reject) => {
+            console.log(`${userId} 사용자 데이터 가져오기 시작...`);
+            // 2초 후에 데이터를 가져오는 것을 흉내 냅니다.
+            setTimeout(() => {
+                if (userId === 1) { // userId가 1이면 성공
+                    const userData = { id: userId, name: '앨리스', email: 'alice@example.com' };
+                    console.log(`${userId} 사용자 데이터 가져오기 성공!`);
+                    resolve(userData); // Promise를 성공 상태(fulfilled)로 만들고 결과 데이터를 전달
+                } else { // 그 외의 userId면 실패
+                    reject(new Error(`사용자 ID ${userId}를 찾을 수 없습니다.`)); // Promise를 실패 상태(rejected)로 만들고 에러를 전달
+                }
+            }, 2000);
+        });
+    }
+
+    console.log('\n--- Promise 예시 시작 ---');
+
+    // 성공하는 경우
+    fetchUserData(1)
+        .then(userData => { // Promise가 성공하면 .then() 안에 있는 함수가 실행
+            console.log('성공적으로 받아온 데이터:', userData);
+            return '다음 작업으로 전달될 값'; // 다음 .then()으로 값을 전달할 수 있음
+        })
+        .then(message => {
+            console.log('이전 .then에서 전달받은 메시지:', message);
+        })
+        .catch(error => { // Promise가 실패하면 .catch() 안에 있는 함수가 실행
+            console.error('데이터 가져오기 실패:', error.message);
+        })
+        .finally(() => { // 성공하든 실패하든 마지막에 항상 실행됩니다.
+            console.log('사용자 데이터 가져오기 시도 완료 (성공/실패 무관)');
+        });
+
+    // 실패하는 경우
+    fetchUserData(2)
+        .then(userData => {
+            console.log('성공적으로 받아온 데이터 (여기는 실행되지 않음):', userData);
+        })
+        .catch(error => {
+            console.error('데이터 가져오기 실패 (ID 2):', error.message);
+        })
+        .finally(() => {
+            console.log('사용자 데이터 가져오기 시도 완료 (ID 2)');
+        });
+
+    console.log('--- Promise 예시 끝 (이 메시지가 먼저 나옴) ---');
+
+    // 화살표 함수가 아니라면?
+
+    /*fetchUserData(1)
+        .then(function(userData) { // (1) 'function' 키워드를 사용해야 해
+            console.log('성공적으로 받아온 데이터:', userData);
+            return '다음 작업으로 전달될 값';
+        })
+        .then(function(message) { // (2) 두 번째 .then()도 마찬가지
+            console.log('이전 .then에서 전달받은 메시지:', message);
+        })
+        .catch(function(error) { // (3) .catch()도 마찬가지
+            console.error('데이터 가져오기 실패:', error.message);
+        })
+        .finally(function() { // (4) .finally()도 마찬가지
+            console.log('사용자 데이터 가져오기 시도 완료 (성공/실패 무관)');
+        });*/
+
+    function getDataWithPromise(source) {
+        return new Promise((resolve, reject) => {
+            console.log(`${source}에서 데이터 가져오기 시작 (Promise)...`);
+            setTimeout(() => {
+                // 랜덤으로 성공 또는 실패를 결정해볼게요
+                const success = Math.random() > 0.3; // 70% 확률로 성공
+                if (success) {
+                    const data = `[${source} 데이터]`;
+                    console.log(`${source}에서 데이터 가져오기 성공 (Promise)!`);
+                    resolve(data);
+                } else {
+                    reject(new Error(`${source}에서 데이터 가져오기 실패!`));
+                }
+            }, 1000); // 1초 걸린다고 가정
+        });
+    }
+
+    console.log('\n--- Promise 체이닝 예시 시작 ---');
+
+    getDataWithPromise('서버X') // 첫 번째 작업 시작
+        .then(dataX => {
+            console.log(`첫 번째 데이터 (Promise): ${dataX}`);
+            return getDataWithPromise('서버Y'); // 첫 번째 성공 후 두 번째 작업 반환
+        })
+        .then(dataY => {
+            console.log(`두 번째 데이터 (Promise): ${dataY}`);
+            return getDataWithPromise('서버Z'); // 두 번째 성공 후 세 번째 작업 반환
+        })
+        .then(dataZ => {
+            console.log(`세 번째 데이터 (Promise): ${dataZ}`);
+            console.log('모든 Promise 데이터 가져오기 완료!');
+        })
+        .catch(error => { // 중간에 어느 하나라도 실패하면 .catch로 이동
+            console.error('Promise 체이닝 중 오류 발생:', error.message);
+        })
+        .finally(() => {
+            console.log('--- Promise 체이닝 예시 끝 ---');
+        });
+
+</script>
+</html>

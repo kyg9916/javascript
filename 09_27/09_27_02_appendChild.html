@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="parent">
+    <p>첫 번째 자식</p>
+</div>
+
+</body>
+
+<script>
+    // parent 요소를 찾는다.
+    const parent = document.getElementById('parent');
+
+    // 새로운 자식 요소를 생성한다.
+    const newChild = document.createElement('span');
+    newChild.innerText = '두 번째 자식';
+
+    // parent 요소에 새로운 자식 요소를 추가한다.
+    parent.appendChild(newChild);
+
+    // 첫 번째 자식 요소를 제거한다.
+    const firstChild = parent.querySelector('p');
+    if (firstChild) {
+        parent.removeChild(firstChild);
+    }
+</script>
+</html>
