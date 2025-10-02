@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--09_28_01_Closure.html-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클로저와 캡슐화 예제</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+        .counter-container { border: 1px solid #ccc; padding: 20px; margin: 10px; border-radius: 8px; text-align: center; }
+        .counter-container button { margin: 5px; padding: 10px 15px; font-size: 16px; cursor: pointer; }
+        .counter-container h2 { margin-bottom: 15px; }
+        .counter-container p { font-size: 2em; margin: 10px 0; }
+    </style>
+</head>
+<body>
+<h1>클로저를 이용한 카운터</h1>
+
+<div id="counter1" class="counter-container">
+    <h2>첫 번째 카운터</h2>
+    <p>현재 값: <span id="count1">0</span></p>
+    <button id="increment1">증가</button>
+    <button id="decrement1">감소</button>
+    <button id="reset1">초기화</button>
+</div>
+
+<div id="counter2" class="counter-container">
+    <h2>두 번째 카운터</h2>
+    <p>현재 값: <span id="count2">0</span></p>
+    <button id="increment2">증가</button>
+    <button id="decrement2">감소</button>
+    <button id="reset2">초기화</button>
+</div>
+
+<script>
+
+    // 클로저를 활용하여 카운터 객체를 생성하는 함수
+    function createCounter(initialValue = 0, containerId) {
+        let count = initialValue; // 캡슐화된 private 변수 (외부에서 직접 접근 불가)
+        const countDisplay = document.querySelector(`#${containerId} span`);
+
+        // 카운터 값을 업데이트하고 화면에 표시하는 내부 함수
+        function updateDisplay() {
+            if (countDisplay) { // countDisplay가 존재하는지 확인
+                countDisplay.textContent = count;
+            }
+        }
+
+        // 초기 화면 업데이트
+        updateDisplay();
+
+        // 외부로 노출할 메서드들을 담은 객체를 반환합니다.
+        return {
+            // 클로저: increment 함수는 외부 함수의 count 변수에 접근
+            increment: function() {
+                count++;
+                updateDisplay(); // count를 변경한 후 화면 업데이트
+            },
+            // 클로저: decrement 함수는 외부 함수의 count 변수에 접근
+            decrement: function() {
+                count--;
+                updateDisplay(); // count를 변경한 후 화면 업데이트
+            },
+            // 클로저: reset 함수는 외부 함수의 count 변수에 접근
+            reset: function() {
+                count = initialValue;
+                updateDisplay(); // count를 변경한 후 화면 업데이트
+            },
+            // 클로저: getValue 함수는 외부 함수의 count 변수에 접근하여 값을 반환
+            getValue: function() {
+                return count; // 현재 count 값을 반환
+            }
+        };
+    }
+
+    // 첫 번째 카운터 인스턴스 생성
+    const counter1 = createCounter(0, 'counter1');
+    // 두 번째 카운터 인스턴스 생성 (초기값 다르게)
+    const counter2 = createCounter(10, 'counter2');
+
+    // 각 카운터의 버튼에 이벤트 리스너 연결
+    document.getElementById('increment1').addEventListener('click', counter1.increment);
+    document.getElementById('decrement1').addEventListener('click', counter1.decrement);
+    document.getElementById('reset1').addEventListener('click', counter1.reset);
+
+    document.getElementById('increment2').addEventListener('click', counter2.increment);
+    document.getElementById('decrement2').addEventListener('click', counter2.decrement);
+    document.getElementById('reset2').addEventListener('click', counter2.reset);
+
+    // 개발자 콘솔에서 클로저를 통해 캡슐화된 변수에 직접 접근할 수 없는 것을 확인
+    console.log('counter1.count에 직접 접근 시도:', counter1.count); // undefined (접근 불가)
+    console.log('counter1.getValue()로 값 확인:', counter1.getValue()); // 0
+
+    // counter1의 증가 메서드 호출
+    counter1.increment();
+    counter1.increment();
+    console.log('counter1.getValue() 증가 후:', counter1.getValue()); // 2
+
+    // counter2의 감소 메서드 호출
+    counter2.decrement();
+    console.log('counter2.getValue() 감소 후:', counter2.getValue()); // 9
+
+</script>
+</body>
+</html>

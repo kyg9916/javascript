@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console 예제</title>
+</head>
+<body>
+<h1>Console 예제를 확인!</h1>
+<p>개발자 도구 (F12)의 'Console' 탭을 열어 결과를 확인</p>
+
+<script>
+
+    console.log("--- console.log 예제 ---");
+    let userName = "초록자두";
+    let userAge = 38;
+    console.log("사용자 이름:", userName);
+    console.log("사용자 나이:", userAge);
+    console.log(`이름은 ${userName}이고, 나이는 ${userAge}살입니다.`);
+
+    console.warn("--- console.warn 예제 ---");
+    let isLoggedIn = false;
+    if (!isLoggedIn) {
+        console.warn("경고: 사용자가 로그인되어 있지 않습니다!"); // 경고 메시지 출력
+    }
+
+    console.error("--- console.error 예제 ---");
+    function divide(a, b) {
+        if (b === 0) {
+            console.error("오류: 0으로 나눌 수 없습니다!"); // 오류 메시지 출력
+            return "오류 발생";
+        }
+        return a / b;
+    }
+    console.log("10 / 2 =", divide(10, 2)); // 출력: 10 / 2 = 5
+    console.log("10 / 0 =", divide(10, 0)); // 오류 메시지 출력 후: 10 / 0 = 오류 발생
+
+    console.log("--- console.table 예제 ---");
+    const students = [
+        { name: "초록자두", age: 38, timemer: "유아기" },
+        { name: "빨간자두", age: 38, timemer: "청년기" },
+        { name: "분홍자두", age: 38, timemer: "쇠퇴기" },
+    ];
+    console.table(students); // 학생 정보들을 표 형태로 출력
+
+    console.log("--- console.time/timeEnd 예제 ---");
+    console.time("배열 합계 계산 시간"); // '배열 합계 계산 시간'이라는 레이블로 시간 측정 시작
+    let sum = 0;
+    for (let i = 0; i < 1000000; i++) {
+        sum += i;
+    }
+    console.log("합계:", sum);
+    console.timeEnd("배열 합계 계산 시간"); // '배열 합계 계산 시간' 레이블로 시간 측정 종료 및 결과 출력
+
+    // try-catch
+
+    try {
+        // 1. 여기에 실행하고 싶은 코드를 넣기
+        // 이 코드 블록 안에서 오류가 발생할 수 있음
+    } catch (error) {
+        // 2. 만약 try 블록 안에서 오류가 발생하면,
+        // 프로그램은 즉시 이 catch 블록으로 점프
+        // 'error' 변수에는 발생한 오류에 대한 정보가 담겨있다.
+        // 여기서 오류를 처리하는 코드를 작성
+    } finally {
+        // 3. (선택 사항) try 블록이 성공적으로 실행되든,
+        // catch 블록이 실행되든 상관없이
+        // 무조건 마지막에 실행되어야 하는 코드가 있다면 여기에 넣는다.
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+    console.log(this);
+
+    // 함수 안에서의 this
+
+    function sayHello() {
+        console.log("안녕하세요! 저는", this, "입니다.");
+    }
+
+    sayHello(); // 브라우저에서는 window, Node.js에서는 global 객체
+
+    // 2. 객체 안의 메서드에서의 this
+
+    const person = {
+        name: "초록자두",
+        age: 38,
+        introduce: function() {
+            console.log("제 이름은", this.name, "이고, 나이는", this.age, "살입니다.");
+            // 여기서 this는 person 객체를 가리켜요!
+        }
+    };
+
+    person.introduce();
+
+    // 3. 화살표 함수 안에서의 this
+
+    const anotherPerson = {
+        name: "밥",
+        greet: () => {
+            console.log("안녕, 나는", this.name, "이야!"); // 여기서 this는 전역 객체
+        }
+    };
+
+    anotherPerson.greet(); // 출력: 안녕, 나는 undefined 이야! (또는 브라우저에서 window.name이 있다면 그 값)
+
+    const yetAnotherPerson = {
+        name: "찰리",
+        introduce: function() {
+            // 일반 함수 안에서 화살표 함수를 사용한 경우
+            setTimeout(() => {
+                console.log("나는", this.name, "입니다."); // 여기서 this는 introduce를 호출한 yetAnotherPerson
+            }, 100);
+        }
+    };
+
+    yetAnotherPerson.introduce(); // 출력: 나는 찰리 입니다. (100ms 후)
+
+    // 2. call
+
+    const user1 = { name: "민수", ageTwo: 15 };
+    const user2 = { name: "지영", ageTwo: 16 };
+
+    function showUserInfo(city, hobby) {
+        console.log(`이름: ${this.name}, 나이: ${this.ageTwo}, 사는 곳: ${city}, 취미: ${hobby}`);
+    }
+
+    // showUserInfo 함수를 user1이 this인 것처럼 실행
+    showUserInfo.call(user1, "서울", "축구");
+    // 출력: 이름: 민수, 나이: 15, 사는 곳: 서울, 취미: 축구
+
+    // showUserInfo 함수를 user2가 this인 것처럼 실행
+    showUserInfo.call(user2, "부산", "그림 그리기");
+    // 출력: 이름: 지영, 나이: 16, 사는 곳: 부산, 취미: 그림 그리기
+
+    // 3. apply
+
+    const admin = { name: "관리자", id: "admin123" };
+    const guest = { name: "손님", id: "guest_id" };
+
+    function logAction(actionType, timestamp) {
+        console.log(`[${timestamp}] ${this.name} (${this.id})님이 ${actionType} 작업을 수행했습니다.`);
+    }
+
+    const adminArgs = ["로그인", "2023-10-26 10:00:00"];
+    logAction.apply(admin, adminArgs);
+    // 출력: [2023-10-26 10:00:00] 관리자 (admin123)님이 로그인 작업을 수행했습니다.
+
+    const guestArgs = ["페이지 조회", "2023-10-26 10:05:30"];
+    logAction.apply(guest, guestArgs);
+    // 출력: [2023-10-26 10:05:30] 손님 (guest_id)님이 페이지 조회 작업을 수행했습니다.
+
+    // 4. bind
+
+    const robot = {
+        name: "로봇1호",
+        version: "v1.0",
+        speak: function(message) {
+            console.log(`${this.name} (${this.version})이 말합니다: ${message}`);
+        }
+    };
+
+    const human = {
+        name: "김철수"
+    };
+
+    // 로봇의 speak 함수를 가져와서 this를 human으로 고정시키고 새로운 함수를 만듭니다.
+    const humanSpeak = robot.speak.bind(human, "안녕하세요!");
+
+    // 이제 humanSpeak를 호출하면 this는 항상 human이 된다.
+    humanSpeak(); // 출력: 김철수 (undefined)이 말합니다: 안녕하세요!
+    // human 객체에는 version이 없으므로 undefined가 나옴 --> 당연함
+
+    // 원래 robot의 speak 함수는 그대로이다.
+    robot.speak("인간, 자바스크립트는 어렵나?");
+
+
+    // this를 robot으로 고정시킨 새로운 함수
+    const robotFixedSpeak = robot.speak.bind(robot);
+    robotFixedSpeak("원래 어려운게 당연해!");
+
+</script>
+
+</html>

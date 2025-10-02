@@ -1,0 +1,71 @@
+<!--09_28_03_EventCapturing.html-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 캡처링 예제</title>
+    <style>
+        body { padding: 20px; font-family: sans-serif; }
+        .outer {
+            width: 300px;
+            height: 150px;
+            background-color: lightblue;
+            border: 2px solid blue;
+            padding: 20px;
+            text-align: center;
+        }
+        .middle {
+            width: 200px;
+            height: 100px;
+            background-color: lightgreen;
+            border: 2px solid green;
+            padding: 15px;
+            margin: 10px auto;
+            text-align: center;
+        }
+        .inner {
+            width: 100px;
+            height: 50px;
+            background-color: lightcoral;
+            border: 2px solid red;
+            line-height: 50px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>이벤트 캡처링 (Capturing)</h1>
+<div class="outer">
+    Outer (바깥쪽)
+    <div class="middle">
+        Middle (중간)
+        <div class="inner">
+            Inner (안쪽)
+        </div>
+    </div>
+</div>
+
+<script>
+    const outer = document.querySelector('.outer');
+    const middle = document.querySelector('.middle');
+    const inner = document.querySelector('.inner');
+
+    // 세 번째 인자를 true로 설정하여 캡처링 단계에서 이벤트를 잡는다.
+    outer.addEventListener('click', function(event) {
+        console.log('Outer DIV 클릭! (캡처링)');
+    }, true); // true: 캡처링 단계에서 이벤트 처리
+
+    middle.addEventListener('click', function(event) {
+        console.log('Middle DIV 클릭! (캡처링)');
+    }, true); // true: 캡처링 단계에서 이벤트 처리
+
+    inner.addEventListener('click', function(event) {
+        console.log('Inner DIV 클릭! (캡처링)');
+    }, true); // true: 캡처링 단계에서 이벤트 처리
+
+    // Inner DIV를 클릭했을 때의 동작을 예상해보자
+</script>
+</body>
+</html>
